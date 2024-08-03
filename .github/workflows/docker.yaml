@@ -23,16 +23,36 @@ jobs:
           username: ${{ secrets.QCLOUDUSERNAME }}
           password: ${{ secrets.QCLOUDPASSWORD }}
 
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+
       - name: Build and push image to registry
         run: |
-          # docker pull
-          cat trigger.txt | awk '{print "docker pull "$2}'
-          cat trigger.txt | awk '{print "docker pull "$2}' | sh
+          while read -r target_image source_image; do
+            # Check if the target image already exists locally
+            if docker inspect --type=image $target_image > /dev/null 2>&1; then
+              echo "Image $target_image exists locally. Checking MD5..."
+              local_digest=$(docker inspect --format='{{index .RepoDigests 0}}' $target_image | cut -d'@' -f2)
+              remote_digest=$(skopeo inspect docker://$source_image | jq -r '.Digest')
 
-          # docker tag
-          cat trigger.txt | awk '{print "docker tag "$2 " " $1}'
-          cat trigger.txt | awk '{print "docker tag "$2 " " $1}' | sh
+              if [ "$local_digest" = "$remote_digest" ]; then
+                echo "Image $target_image is up-to-date. Skipping..."
+                continue
+              else
+                echo "Image $target_image is outdated. Updating..."
+              fi
+            else
+              echo "Image $target_image does not exist locally. Pulling and updating..."
+            fi
 
-          # docker push
-          cat trigger.txt | awk '{print "docker push " $1}'
-          cat trigger.txt | awk '{print "docker push " $1}' | sh
+            # Pull the source image
+            docker pull $source_image
+            # Tag the source image to the target image
+            docker tag $source_image $target_image
+            # Push the target image to the registry
+            docker push $target_image
+          done < trigger.txt
+        env:
+          REGISTRY: ccr.ccs.tencentyun.com
