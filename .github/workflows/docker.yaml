@@ -26,38 +26,11 @@ jobs:
           username: ${{ secrets.QCLOUDUSERNAME }}
           password: ${{ secrets.QCLOUDPASSWORD }}
 
-      # 安装必要的依赖工具 jq 和 skopeo
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y jq skopeo
-
       # 构建并推送镜像到仓库
       - name: Build and push image to registry
         run: |
           while read -r target_image source_image; do
             echo "处理镜像 $target_image 从 $source_image"
-
-            # 检查目标镜像是否已经存在于远程仓库中
-            if skopeo inspect docker://${target_image} > /dev/null 2>&1; then
-              # 获取远程镜像的 Digest
-              remote_digest=$(skopeo inspect docker://${target_image} | jq -r '.Digest')
-              # 获取源镜像的 Digest
-              source_digest=$(skopeo inspect docker://${source_image} | jq -r '.Digest')
-
-              echo "远程镜像的 Digest: $remote_digest"
-              echo "源镜像的 Digest: $source_digest"
-
-              # 比较两个镜像的 Digest
-              if [ "$remote_digest" = "$source_digest" ]; then
-                echo "镜像 $target_image 已是最新的，跳过..."
-                continue
-              else
-                echo "镜像 $target_image 需要更新，进行更新..."
-              fi
-            else
-              echo "镜像 $target_image 不存在于仓库中，进行拉取和推送..."
-            fi
 
             # 拉取源镜像
             docker pull $source_image
@@ -65,4 +38,5 @@ jobs:
             docker tag $source_image $target_image
             # 推送目标镜像到仓库
             docker push $target_image
+
           done < trigger.txt
