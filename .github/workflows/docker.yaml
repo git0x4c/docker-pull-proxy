@@ -22,7 +22,7 @@ jobs:
       - name: Login to Tencent Cloud Container Registry
         uses: docker/login-action@v3
         with:
-          registry: ${{ secrets.REGISTRY }}
+          registry: ccr.ccs.tencentyun.com
           username: ${{ secrets.QCLOUDUSERNAME }}
           password: ${{ secrets.QCLOUDPASSWORD }}
 
@@ -66,5 +66,3 @@ jobs:
             # 推送目标镜像到仓库
             docker push $target_image
           done < trigger.txt
-        env:
-          REGISTRY: ccr.ccs.tencentyun.com
