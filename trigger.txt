@@ -1,11 +1,1 @@
-nginx:latest                                                uhub.service.ucloud.cn/proxy-app/nginx:latest
-quay.io/jetstack/cert-manager-controller:v1.12.4            uhub.service.ucloud.cn/proxy-app/cert-manager-controller:v1.12.4
-docker.elastic.co/elasticsearch/elasticsearch:8.14.0        uhub.service.ucloud.cn/proxy-app/elasticsearch:8.14.0
-docker.elastic.co/logstash/logstash:8.14.0                  uhub.service.ucloud.cn/proxy-app/logstash:8.14.0
-docker.elastic.co/kibana/kibana:8.14.0                      uhub.service.ucloud.cn/proxy-app/kibana:8.14.0
-docker.elastic.co/beats/filebeat:8.14.0                     uhub.service.ucloud.cn/proxy-app/filebeat:8.14.0
-golang:1.22                                                 uhub.service.ucloud.cn/proxy-app/golang:1.22
-docker.elastic.co/elasticsearch/elasticsearch:8.14.1        uhub.service.ucloud.cn/proxy-app/elasticsearch:8.14.1
-docker.elastic.co/logstash/logstash:8.14.1                  uhub.service.ucloud.cn/proxy-app/logstash:8.14.1
-docker.elastic.co/kibana/kibana:8.14.1                      uhub.service.ucloud.cn/proxy-app/kibana:8.14.1
-docker.elastic.co/beats/filebeat:8.14.1                     uhub.service.ucloud.cn/proxy-app/filebeat:8.14.1
+ccr.ccs.tencentyun.com/leung/app:nginx-latest                                                nginx:latest

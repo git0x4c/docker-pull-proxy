@@ -19,20 +19,20 @@ jobs:
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
-          registry: uhub.service.ucloud.cn
-          username: ${{ secrets.DOCKER_REGISTRY_USER }}
-          password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+          registry: ccr.ccs.tencentyun.com
+          username: ${{ secrets.QCLOUDUSERNAME }}
+          password: ${{ secrets.QCLOUDPASSWORD }}
 
       - name: Build and push image to registry
         run: |
           # docker pull
-          cat trigger.txt |awk '{print "docker pull "$1} '
-          cat trigger.txt |awk '{print "docker pull "$1} '| sh
-  
+          cat trigger.txt | awk '{print "docker pull "$2}'
+          cat trigger.txt | awk '{print "docker pull "$2}' | sh
+
           # docker tag
-          cat trigger.txt |awk '{print "docker tag "$1 " " $2} '
-          cat trigger.txt |awk '{print "docker tag "$1 " " $2} '| sh
-          
+          cat trigger.txt | awk '{print "docker tag "$2 " " $1}'
+          cat trigger.txt | awk '{print "docker tag "$2 " " $1}' | sh
+
           # docker push
-          cat trigger.txt |awk '{print "docker push " $2} '
-          cat trigger.txt |awk '{print "docker push " $2} '| sh
+          cat trigger.txt | awk '{print "docker push " $1}'
+          cat trigger.txt | awk '{print "docker push " $1}' | sh
