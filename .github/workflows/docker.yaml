@@ -31,12 +31,15 @@ jobs:
         run: |
           while read -r target_image source_image; do
             echo "处理镜像 $target_image 从 $source_image"
-
-            # 拉取源镜像
-            docker pull $source_image
-            # 标记源镜像为目标镜像
-            docker tag $source_image $target_image
-            # 推送目标镜像到仓库
-            docker push $target_image
+            if docker manifest inspect $target_image > /dev/null 2>&1; then
+              echo "目标镜像 $target_image 已存在，跳过拉取"
+            else
+              # 拉取源镜像
+              docker pull $source_image
+              # 标记源镜像为目标镜像
+              docker tag $source_image $target_image
+              # 推送目标镜像到仓库
+              docker push $target_image
+            fi
 
           done < trigger.txt
