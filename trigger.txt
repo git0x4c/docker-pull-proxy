@@ -1,3 +1,11 @@
 ccr.ccs.tencentyun.com/leung/app:nginx-latest                                                docker.io/library/nginx:latest
+ccr.ccs.tencentyun.com/leung/app:nginx-stable                                                docker.io/library/nginx:stable
 ccr.ccs.tencentyun.com/leung/app:node-18-alpine                                              docker.io/library/node:18-alpine
 ccr.ccs.tencentyun.com/leung/app:mysql-8_4_2                                                 docker.io/library/mysql:8.4.2
+ccr.ccs.tencentyun.com/leung/app:postgres_15-alpine                                          docker.io/library/postgres:15-alpine
+ccr.ccs.tencentyun.com/leung/app:redis_6-alpine                                              docker.io/library/redis:6-alpine
+ccr.ccs.tencentyun.com/leung/app:semitechnologies_weaviate-1_19_0                            docker.io/library/semitechnologies/weaviate:1.19.0
+ccr.ccs.tencentyun.com/leung/app:langgenius_dify-sandbox-0_2_10                              docker.io/library/langgenius/dify-sandbox:0.2.10
+ccr.ccs.tencentyun.com/leung/app:ubuntu_squid-latest                                         docker.io/library/ubuntu/squid:latest
+ccr.ccs.tencentyun.com/leung/app:langgenius_dify-api-0_15_2                                  docker.io/library/langgenius/dify-api:0.15.2
+ccr.ccs.tencentyun.com/leung/app:langgenius_dify-web-0_15_2                                  docker.io/library/langgenius/dify-web:0.15.2
