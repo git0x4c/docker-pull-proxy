@@ -10,3 +10,4 @@ ccr.ccs.tencentyun.com/leung/app:ubuntu_squid-latest                            
 ccr.ccs.tencentyun.com/leung/app:langgenius_dify-api-0_15_2                                  docker.io/langgenius/dify-api:0.15.2
 ccr.ccs.tencentyun.com/leung/app:langgenius_dify-web-0_15_2                                  docker.io/langgenius/dify-web:0.15.2
 ccr.ccs.tencentyun.com/leung/app:lobehub_lobe-chat-1_67_0-latest                             docker.io/lobehub/lobe-chat:latest
+ccr.ccs.tencentyun.com/leung/app:1panel_maxkb-latest                                         docker.io/1panel/maxkb:latest
